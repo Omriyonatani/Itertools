@@ -1,6 +1,5 @@
 #pragma once
 #include "range.hpp"
-#include "simulator_container.hpp"
 
 namespace itertools{
 template <template<typename> class Container, typename T>	class accumulate {
@@ -11,28 +10,9 @@ template <template<typename> class Container, typename T>	class accumulate {
 				cout<<"container constructor\n"<<endl;
 			}
 
-            accumulate(simulator_container<T> cont):container(cont){
+            accumulate(range cont):container(cont){
 				cout<<"simulator_container constructor\n"<<endl;
 			}
-
-			T& operator [](int i){
-				if(i==0){
-					if(type(container)==type(Container<T>)){
-						return container[0];
-					}
-					else{
-						return *(container.begin());
-					}
-				}
-
-				return nullptr;
-				
-			}
-
-			int size(){
-				return container.size();
-			}
-
 
 	class iterator {
 
@@ -79,9 +59,6 @@ template <template<typename> class Container, typename T>	class accumulate {
 		};  // END OF CLASS ITERATOR
 
 		iterator begin() {
-            if(container.size()==0){
-                return iterator{nullptr};
-            }
 			return iterator{&container[0]};
 		}
 		

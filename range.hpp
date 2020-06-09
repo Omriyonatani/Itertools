@@ -1,26 +1,14 @@
 #pragma once
-#include "simulator_container.hpp"
 
 namespace itertools{
-	template<typename T>
-	class range: public simulator_container<T> {
+	class range {
 		public:
 			int Start;
 			int End;
 
-			range(int s,int e):Start(s),End(e),
-				simulator_container<T>::cont_size(e-s){
+			range(int s,int e):Start(s),End(e){
 			}
 
-			//dont important in this class
-			T& operator[](int i){
-				T a;
-				return T; 
-			}
-
-			int size(){
-				return simulator_container<T>::cont_size;
-			}
 
 	class iterator {
 
