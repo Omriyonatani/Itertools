@@ -5,13 +5,14 @@ namespace itertools{
 template <template<typename> class Container, typename T>	class accumulate {
 		public:
 			Container<T> container;
+			int s;
             
-			accumulate(Container<T> cont):container(cont){
-				cout<<"container constructor\n"<<endl;
+			accumulate(Container<T> cont):container(cont),size(cont.size()){
+
 			}
 
-            accumulate(range cont):container(cont){
-				cout<<"simulator_container constructor\n"<<endl;
+            accumulate(range cont):container(cont),s(cont.size()){
+				
 			}
 
 	class iterator {

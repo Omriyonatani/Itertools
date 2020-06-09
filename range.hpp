@@ -5,8 +5,13 @@ namespace itertools{
 		public:
 			int Start;
 			int End;
+			int s;
 
-			range(int s,int e):Start(s),End(e){
+			range(int s,int e):Start(s),End(e),s(e-s){
+			}
+
+			int size(){
+				return s;
 			}
 
 
