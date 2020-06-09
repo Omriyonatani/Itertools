@@ -37,34 +37,34 @@ int main(int argc, const char * argv[]) {
 	for (int i: accumulate(range(5,9)))
 		cout << i << " ";      // 5 11 18 26
 
-    cout << endl << "accumulate of vector<string>: " << endl;
-    for (auto i: accumulate(vecString) )
-        cout << i << " ";  // Hello HelloBye HelloByeAdam
-    cout << endl << endl;
+    // cout << endl << "accumulate of vector<string>: " << endl;
+    // for (auto i: accumulate(vecString) )
+    //     cout << i << " ";  // Hello HelloBye HelloByeAdam
+    // cout << endl << endl;
 
-    cout << endl << "accumulate of range with binary operator: " << endl;
-	for (int i: accumulate(range(5,9), [](int x, int y){return x*y;}))
-		cout << i << " ";      // 5 30 210 1680
+    // cout << endl << "accumulate of range with binary operator: " << endl;
+	// for (int i: accumulate(range(5,9), [](int x, int y){return x*y;}))
+	// 	cout << i << " ";      // 5 30 210 1680
 
-    cout << "####  Filter False:  ####";
-    cout << endl << "Filter out all numbers less than 3 in vector{1,2,3,4}: " << endl;
-    for (auto i: filterfalse(lessThan3{}, vecInt) )
-        cout << i << " ";   // 3 4
-    cout << endl << "Filter out all even numbers in range(5,9): " << endl;
-    for (auto i: filterfalse([](int i){return i%2==0;}, range(5,9)) )
-        cout << i << " ";   // 5 7
-    cout << endl << endl;
+    // cout << "####  Filter False:  ####";
+    // cout << endl << "Filter out all numbers less than 3 in vector{1,2,3,4}: " << endl;
+    // for (auto i: filterfalse(lessThan3{}, vecInt) )
+    //     cout << i << " ";   // 3 4
+    // cout << endl << "Filter out all even numbers in range(5,9): " << endl;
+    // for (auto i: filterfalse([](int i){return i%2==0;}, range(5,9)) )
+    //     cout << i << " ";   // 5 7
+    // cout << endl << endl;
 
-    cout << "####  compress:  ####";
-    cout << endl << "compress a string" << endl;
-    for (auto i: compress(string("abcd"), vector<bool>({true,true,false,true})) )
-        cout << i << " ";  // a b d
-    cout << endl << "compress a range" << endl;
-    for (auto i: compress(range(5,9), vector<bool>({true,true,false,true})) )
-        cout << i << " ";  // 5 6 8
-    cout << endl << endl;
+    // cout << "####  compress:  ####";
+    // cout << endl << "compress a string" << endl;
+    // for (auto i: compress(string("abcd"), vector<bool>({true,true,false,true})) )
+    //     cout << i << " ";  // a b d
+    // cout << endl << "compress a range" << endl;
+    // for (auto i: compress(range(5,9), vector<bool>({true,true,false,true})) )
+    //     cout << i << " ";  // 5 6 8
+    // cout << endl << endl;
 
 
-    cout << endl;
+    // cout << endl;
     return 0;
 }
