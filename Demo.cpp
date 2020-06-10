@@ -23,7 +23,8 @@ struct lessThan3 {
 };
 
 int main(int argc, const char * argv[]) {
-    
+
+
     cout << "####  range:  ####";
 	for (int i: range(5,9))
 		cout << i << " ";      // 5 6 7 8
@@ -32,9 +33,14 @@ int main(int argc, const char * argv[]) {
     vector<string> vecString = {"Hello", "Bye", "Adam"};
     vector<float> vecFloat = {-1, 0.3, 5.2, -8.3};
     
+    
     cout << "####  accumulate:  ####";
     cout << endl << "accumulate of range: " << endl;
-	for (int i: accumulate(range(5,9)))
+
+    // for(range::iterator i=range.begin();i!=range.end();i++){
+
+    // }
+	for (int i: accumulate<vector<int>>(vector<int>{1,2,3,4}))
 		cout << i << " ";      // 5 11 18 26
 
     // cout << endl << "accumulate of vector<string>: " << endl;

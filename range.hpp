@@ -1,38 +1,38 @@
 #pragma once
+#include <iostream>
+
+using namespace std;
 
 namespace itertools{
 	class range {
 		public:
 			int Start;
 			int End;
-			int s;
 
-			range(int s,int e):Start(s),End(e),s(e-s){
+			range(int s,int e):Start(s),End(e){
 			}
 
-			int size(){
-				return s;
-			}
 
 
 	class iterator {
 
 		private:
-			int* curr;
+			int curr;
 
 		public:
-
-			iterator(int* ptr = nullptr)
-				: curr(ptr) {
+			
+			iterator(int num)
+				: curr(num) {
+					cout<<"range iterator constructor\n";
 			}
 
-			int& operator*() const {
-				return *curr;
+			int operator*() const {
+				return curr;
 			}
 
 			// ++i;
 			iterator& operator++() {
-				(*curr)++;// if was 5 - now 6
+				(curr)++;// if was 5 - now 6
 				return *this;
 			}
 
@@ -40,25 +40,27 @@ namespace itertools{
 			// Usually iterators are passed by value and not by const& as they are small.
 			const iterator operator++(int) {
 				iterator tmp= *this;
-				(*curr)++;
+				curr++;
 				return tmp;
 			}
 
 			bool operator==(const iterator& rhs) const {
-				return (*curr) == (*rhs.curr);
+				return curr == rhs.curr;
 			}
 
 			bool operator!=(const iterator& rhs) const {
-				return (*curr) != (*rhs.curr);
+				return curr!= rhs.curr;
 			}
 		};  // END OF CLASS ITERATOR
 
 		iterator begin() {
-			return iterator{&Start};
+			cout<<"range begin() iterator \n";
+			return iterator{Start};
 		}
 		
 		iterator end() {
-			return iterator{&End};
+			cout<<"range end() iterator \n";
+			return iterator{End};
 		}
 
 

@@ -1,74 +1,96 @@
-#pragma once
-#include "range.hpp"
+
+// #pragma once
+#ifndef ACCU_H
+#define ACCU_H
+#include <iostream>
+#include <vector>
+#include <typeinfo>
+
+#include <iterator>
+
+using namespace std;
+
 
 namespace itertools{
-template <template<typename> class Container, typename T>	class accumulate {
+
+	typedef struct {
+		template<typename T>
+		T operator ()(T a,T b)const{
+			return a+b;
+		}
+	}plus;
+
+	template <typename Container,typename Function = plus>
+	class accumulate{
+		
+		private:
+			Container container;
+			Function func;
+
 		public:
-			Container<T> container;
-			int s;
-            
-			accumulate(Container<T> cont):container(cont),size(cont.size()){
+			accumulate( Container cont, Function func = plus()):container(cont),func(func){}
 
-			}
+		class iterator {
 
-            accumulate(range cont):container(cont),s(cont.size()){
+			private:
+				decltype(*(container.begin())) sum;
+				typename Container::iterator pos;
+				typename Container::iterator end;
+				Function func;
+
+			public:
+
+				iterator(typename Container::iterator p,typename Container::iterator end,Function func): 
+					pos(p),end(end),func(func),sum(*pos) {
+						cout<<"accumulate iterator constructor\n";
+				}
+
+
+				auto operator*() {
+					return sum;
+				}
+
+				// ++i;
+				iterator& operator++() {
+					++pos;
+					if(pos!=end){
+						sum=func(sum,*(pos));
+					}
+					return *this;
+				}
+
+				// i++;
+				// Usually iterators are passed by value and not by const& as they are small.
+				iterator operator++(int) {
+					iterator tmp= *this;
+					pos++;
+					sum=func(sum,*(pos));
+					return tmp;
+				}
+
+				bool operator==(const iterator& rhs)  {
+					return pos == rhs.pos;
+				}
+
+				bool operator!=(const iterator& rhs)  {
+					return pos != rhs.pos;
+				}
+			};  // END OF CLASS ITERATOR
+
+			iterator begin() {
+				cout<<"accumulate begin() iterator \n";
+				return iterator(container.begin(),container.end(),func);
 				
 			}
 
-	class iterator {
-
-		private:
-            T* curr;
-            T sum;
-
-		public:
-
-			iterator(T* ptr = nullptr)
-				: curr(ptr) {
-                    if(ptr!=nullptr){
-                        sum=*ptr;
-                    }
+			iterator end() {
+				cout<<"accumulate end() iterator \n";
+				return iterator(container.end(),container.end(),func);
 			}
 
-			T& operator*() const {
-				return sum;
-			}
-
-			// ++i;
-			iterator& operator++() {
-                curr++;
-				sum+=(*curr);// if sum was 5 - now 5+6
-				return *this;
-			}
-
-			// i++;
-			// Usually iterators are passed by value and not by const& as they are small.
-			const iterator operator++(int) {
-				iterator tmp= *this;
-                curr++;
-				sum+=(*curr);
-				return tmp;
-			}
-
-			bool operator==(const iterator& rhs) const {
-				return curr == rhs.curr;
-			}
-
-			bool operator!=(const iterator& rhs) const {
-				return curr != rhs.curr;
-			}
-		};  // END OF CLASS ITERATOR
-
-		iterator begin() {
-			return iterator{&container[0]};
-		}
-		
-		iterator end() {
-			return iterator{nullptr};
-		}
-
-
-		
 
 	};
 }
+
+#endif
+
