@@ -9,10 +9,7 @@ namespace itertools{
 			int Start;
 			int End;
 
-			range(int s,int e):Start(s),End(e){
-			}
-
-
+			range(int s,int e):Start(s),End(e){}
 
 	class iterator {
 
@@ -22,9 +19,7 @@ namespace itertools{
 		public:
 			
 			iterator(int num)
-				: curr(num) {
-					cout<<"range iterator constructor\n";
-			}
+				: curr(num) {}
 
 			int operator*() const {
 				return curr;
@@ -54,12 +49,10 @@ namespace itertools{
 		};  // END OF CLASS ITERATOR
 
 		iterator begin() {
-			cout<<"range begin() iterator \n";
 			return iterator{Start};
 		}
 		
 		iterator end() {
-			cout<<"range end() iterator \n";
 			return iterator{End};
 		}
 

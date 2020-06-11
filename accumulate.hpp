@@ -34,6 +34,7 @@ namespace itertools{
 
 			private:
 				decltype(*(container.begin())) sum;
+
 				typename Container::iterator pos;
 				typename Container::iterator end;
 				Function func;
@@ -41,9 +42,7 @@ namespace itertools{
 			public:
 
 				iterator(typename Container::iterator p,typename Container::iterator end,Function func): 
-					pos(p),end(end),func(func),sum(*pos) {
-						cout<<"accumulate iterator constructor\n";
-				}
+					pos(p),end(end),func(func),sum(*p) {}
 
 
 				auto operator*() {
@@ -78,13 +77,11 @@ namespace itertools{
 			};  // END OF CLASS ITERATOR
 
 			iterator begin() {
-				cout<<"accumulate begin() iterator \n";
 				return iterator(container.begin(),container.end(),func);
 				
 			}
 
 			iterator end() {
-				cout<<"accumulate end() iterator \n";
 				return iterator(container.end(),container.end(),func);
 			}
 
