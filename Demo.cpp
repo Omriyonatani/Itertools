@@ -25,7 +25,6 @@ struct lessThan3 {
 
 int main(int argc, const char * argv[]) {
 
-    
     cout << "####  range:  ####";
 	for (int i: range(5,9))
 		cout << i << " ";      // 5 6 7 8

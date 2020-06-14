@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -9,7 +10,11 @@ namespace itertools{
 			int Start;
 			int End;
 
-			range(int s,int e):Start(s),End(e){}
+			range(int s,int e):Start(s),End(e){
+				if(s>e){
+					throw new std::logic_error("there is no range\n");
+				}
+			}
 
 	class iterator {
 
@@ -48,11 +53,11 @@ namespace itertools{
 			}
 		};  // END OF CLASS ITERATOR
 
-		iterator begin() {
+		iterator begin() const{
 			return iterator{Start};
 		}
 		
-		iterator end() {
+		iterator end() const{
 			return iterator{End};
 		}
 

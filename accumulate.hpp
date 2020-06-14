@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <typeinfo>
-
+#include <type_traits>
 #include <iterator>
 
 using namespace std;
@@ -24,28 +24,33 @@ namespace itertools{
 	class accumulate{
 		
 		private:
-			Container container;
-			Function func;
+		    const Container& container;
+			const Function& func;
 
 		public:
-			accumulate( Container cont, Function func = plus()):container(cont),func(func){}
+			accumulate(const Container& cont, const Function& func = plus()):container(cont),func(func){}
 
 		class iterator {
 
 			private:
-				decltype(*(container.begin())) sum;
+				typename decay<decltype(*(container.begin()))>::type sum;
 
-				typename Container::iterator pos;
-				typename Container::iterator end;
+				decltype(container.begin()) pos;
+				decltype(container.end()) end;
 				Function func;
 
 			public:
 
-				iterator(typename Container::iterator p,typename Container::iterator end,Function func): 
-					pos(p),end(end),func(func),sum(*p) {}
+				iterator(decltype(container.begin()) p,decltype(container.end()) end,Function func): 
+					pos(p),end(end),func(func) {
+						if(p!=end){
+							sum=*p;
+						}
+
+					}
 
 
-				auto operator*() {
+				auto operator*() const{
 					return sum;
 				}
 
@@ -67,21 +72,21 @@ namespace itertools{
 					return tmp;
 				}
 
-				bool operator==(const iterator& rhs)  {
+				bool operator==(const iterator& rhs)  const{
 					return pos == rhs.pos;
 				}
 
-				bool operator!=(const iterator& rhs)  {
+				bool operator!=(const iterator& rhs) const {
 					return pos != rhs.pos;
 				}
 			};  // END OF CLASS ITERATOR
 
-			iterator begin() {
+			iterator begin() const{
 				return iterator(container.begin(),container.end(),func);
 				
 			}
 
-			iterator end() {
+			iterator end() const{
 				return iterator(container.end(),container.end(),func);
 			}
 

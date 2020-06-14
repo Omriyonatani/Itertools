@@ -4,34 +4,48 @@
 #include <iostream>
 #include <vector>
 #include <typeinfo>
+#include <cassert>
 #include <iterator>
 
 using namespace std;
 
 namespace itertools{
 
+	template<typename T> struct is_bool {
+		static const bool value = false;
+	};
+
+	template<> struct is_bool<bool> {
+		static const bool value = true;
+	};
+
+
 	template <typename Container,typename ContainerBool>
 	class compress{
 		
 		private:
-            ContainerBool cbool;
-			Container container;
+            const ContainerBool& cbool;
+			const Container& container;
 			
 		public:
-			compress(Container cont, ContainerBool cbool ):container(cont),cbool(cbool){}
+			compress(const Container& cont,const ContainerBool& cb ):container(cont),cbool(cb){
+				// static_assert(is_bool<decltype(cb[0])>::value,"Can be only boolean type\n");
+			}
 
 		class iterator {
 			
 			private:
-				typename Container::iterator pos;
-				typename Container::iterator end;
-                typename ContainerBool::iterator pos_bool;
-				typename ContainerBool::iterator end_bool;
+				decltype(container.begin()) pos;
+				decltype(container.end()) end;
+                decltype(cbool.begin()) pos_bool;
+				decltype(cbool.end()) end_bool;
 
 			public:
-				iterator(typename Container::iterator p,typename Container::iterator end,
-                typename ContainerBool::iterator p_bool,typename ContainerBool::iterator end_bool): 
-					pos(p),end(end),pos_bool(p_bool),end_bool(end_bool) {}
+				iterator(decltype(container.begin()) p,decltype(container.end()) end,
+                decltype(cbool.begin()) p_bool,decltype(cbool.end()) end_bool): 
+					pos(p),end(end),pos_bool(p_bool),end_bool(end_bool) {
+						cout<<"iterator compress ctor\n"<<endl;
+					}
 
 				// ++i;
 				iterator& operator++() {
@@ -58,26 +72,30 @@ namespace itertools{
 				}
 
                 auto operator*() {
+					cout<<boolalpha<<*pos_bool<<endl;
+					cout<<"iterator compress *\n"<<endl;
                     if(!*pos_bool && pos!=end){
                         (*this)++;
                     }
                     return *pos;
 				}
 
-				bool operator==(const iterator& rhs)  {
+				bool operator==(const iterator& rhs) const {
 					return pos == rhs.pos;
 				}
 
-				bool operator!=(const iterator& rhs)  {
+				bool operator!=(const iterator& rhs)  const{
 					return pos != rhs.pos;
 				}
 			};  // END OF CLASS ITERATOR
 
-			iterator begin() {
+			iterator begin() const{
+				cout<<"iterator compress begin\n"<<endl;
 				return iterator(container.begin(),container.end(),cbool.begin(),cbool.end());
 			}
 
-			iterator end() {
+			iterator end() const{
+				cout<<"iterator compress end\n"<<endl;
 				return iterator(container.end(),container.end(),cbool.end(),cbool.end());
 			}
 	};
