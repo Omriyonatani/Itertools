@@ -99,14 +99,27 @@ TEST_CASE ("accumulate checks") {
 TEST_CASE ("filterfalse checks") {
     vector<int> vecInt = {1, 2, 2, 0};
     vector<int> vecInt2 = {5, 6, 7, 8};
-    vector<int> vecInt3 = {2, 2, 2, 2};
-    vector<int> vecInt4 = {-1, 2, -2, 4};
 
-
-
+    for(auto i: filterfalse([](int x){return x<3;}, range(-10,10))){
+        CHECK(i>=3);
+    }
+    for(auto i: filterfalse([](int x){return x>3;}, vecInt)){
+                CHECK(i<=3);
+    }
+    for(auto i: filterfalse([](int x){return x%2==0;}, range(-10,10))){
+                CHECK(i%1==0);
+    }
+    for(auto i: filterfalse([](int x){return x<4;}, vecInt2)){
+                CHECK(i>=4);
+    }
 }
 
 TEST_CASE ("compress checks") {
+
+    vector<bool> Booli = {true,true,true,true,false,true,true,true,true,false,true,true,true,true,false,true,true,true,true,false};
+    for(auto i: compress(range(1,21),Booli)){
+        CHECK(i%5!=0);
+    }
 
 }
 

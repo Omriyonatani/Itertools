@@ -44,7 +44,7 @@ namespace itertools{
 				iterator(decltype(container.begin()) p,decltype(container.end()) end,
                 decltype(cbool.begin()) p_bool,decltype(cbool.end()) end_bool): 
 					pos(p),end(end),pos_bool(p_bool),end_bool(end_bool) {
-						cout<<"iterator compress ctor\n"<<endl;
+//						cout<<"iterator compress ctor\n"<<endl;
 					}
 
 				// ++i;
@@ -72,8 +72,8 @@ namespace itertools{
 				}
 
                 auto operator*() {
-					cout<<boolalpha<<*pos_bool<<endl;
-					cout<<"iterator compress *\n"<<endl;
+//					cout<<boolalpha<<*pos_bool<<endl;
+//					cout<<"iterator compress *\n"<<endl;
                     if(!*pos_bool && pos!=end){
                         (*this)++;
                     }
@@ -90,12 +90,12 @@ namespace itertools{
 			};  // END OF CLASS ITERATOR
 
 			iterator begin() const{
-				cout<<"iterator compress begin\n"<<endl;
+//				cout<<"iterator compress begin\n"<<endl;
 				return iterator(container.begin(),container.end(),cbool.begin(),cbool.end());
 			}
 
 			iterator end() const{
-				cout<<"iterator compress end\n"<<endl;
+//				cout<<"iterator compress end\n"<<endl;
 				return iterator(container.end(),container.end(),cbool.end(),cbool.end());
 			}
 	};
