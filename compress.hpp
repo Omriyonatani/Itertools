@@ -49,6 +49,7 @@ namespace itertools{
 
 				// ++i;
 				iterator& operator++() {
+					cout<< "++operator "<<endl;
                     ++pos;
                     ++pos_bool;
                     while(!*pos_bool && pos_bool!=end_bool){
@@ -61,6 +62,7 @@ namespace itertools{
 				// i++;
 				// Usually iterators are passed by value and not by const& as they are small.
 				iterator operator++(int) {
+					cout<< "operator ++"<<endl;
 					iterator tmp= *this;
 					pos++;
                     pos_bool++;
@@ -73,7 +75,7 @@ namespace itertools{
 
                 auto operator*() {
 //					cout<<boolalpha<<*pos_bool<<endl;
-//					cout<<"iterator compress *\n"<<endl;
+					cout<<"iterator compress *\n"<<endl;
                     if(!*pos_bool && pos!=end){
                         (*this)++;
                     }
@@ -90,12 +92,12 @@ namespace itertools{
 			};  // END OF CLASS ITERATOR
 
 			iterator begin() const{
-//				cout<<"iterator compress begin\n"<<endl;
+				cout<<"iterator compress begin\n"<<endl;
 				return iterator(container.begin(),container.end(),cbool.begin(),cbool.end());
 			}
 
 			iterator end() const{
-//				cout<<"iterator compress end\n"<<endl;
+				cout<<"iterator compress end\n"<<endl;
 				return iterator(container.end(),container.end(),cbool.end(),cbool.end());
 			}
 	};
