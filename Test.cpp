@@ -18,6 +18,13 @@ struct divide4 {
     }
 };
 
+typedef struct {
+	template<typename T>
+	T operator ()(T a,T b)const{
+		return a-b;
+	}
+}Minus;
+
 struct lessThan3 {
     bool operator()(int i) const { return i < 3; }
 };
@@ -123,9 +130,70 @@ TEST_CASE ("compress checks") {
 
 }
 
-TEST_CASE ("random check") {
+TEST_CASE("Ron's range "){
+    // chars container
+    char t='a';
+    for(char c: range('a','e')){
+        CHECK(c == t);
+        t++;
+    }
 
+    // negative to positive container
+    int i=-3;
+    for(int j: range(-3,3)){
+        CHECK(i==j);
+        i++;
+    }
+
+    // big container
+    int a=0;
+    for(int b: range(0,1000000000)){
+        CHECK(a==b);
+        a++;
+        if(a==5){
+            break;
+        }
+    }
 }
+
+TEST_CASE("Ron's acumulate "){
+    int i = -4;
+    int sum = 0;
+    for(int j: accumulate(range(-4,3))){
+        sum+=i;
+        i++;
+        CHECK(sum==j);
+    }
+
+    int a = -4;
+    int sum2 = 0;
+    for(int b: accumulate(range(-4,3),Minus())){//{-4,-3,-2,-1,0,1,2,3}
+        if(a==-4){
+            sum2=a;
+            CHECK(sum2==b);
+            a++;
+            continue;
+        }
+        sum2-=a;
+        a++;
+        CHECK(sum2==b);
+    }
+
+    // // -4 -3 -2 -1 0 1 2 
+    // // -4 -7 -9 -10 -10 -9 -7
+    // // -4 -11 -20 -30 -40 -49 -56
+    // int d = -4;
+    // int sum3 = 0;
+    // int sum4 = 0;
+    // for(int f: accumulate(accumulate(range(-4,3)))){
+    //     sum3+=d;
+    //     sum4+=sum3;
+    //     d++;
+    //     CHECK(sum4==f);
+    //     cout<<f<<endl;
+    // }
+}
+
 
 
 
