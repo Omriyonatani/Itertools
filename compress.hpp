@@ -44,17 +44,18 @@ namespace itertools{
 				iterator(decltype(container.begin()) p,decltype(container.end()) end,
                 decltype(cbool.begin()) p_bool,decltype(cbool.end()) end_bool): 
 					pos(p),end(end),pos_bool(p_bool),end_bool(end_bool) {
-//						cout<<"iterator compress ctor\n"<<endl;
+						while(!*pos_bool && pos_bool!=end_bool){
+                        	++pos;
+                        	++pos_bool;
+                    	}
 					}
 
 				// ++i;
 				iterator& operator++() {
-                    ++pos;
-                    ++pos_bool;
-                    while(!*pos_bool && pos_bool!=end_bool){
+                    do{
                         ++pos;
                         ++pos_bool;
-                    }
+                    }while(!*pos_bool && pos_bool!=end_bool);
 					return *this;
 				}
 

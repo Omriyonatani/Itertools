@@ -257,6 +257,7 @@ TEST_CASE("Test Compress")
     
     for (auto i: compress(string("InotLoveC++"), myVectorBool2))
     {
+        cout<<"#######"<<i<<endl;
         CHECK(0==1); // not need to get in
         ++j;
     }

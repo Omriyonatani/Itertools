@@ -29,14 +29,18 @@ namespace itertools{
 
 			public:
 				iterator(decltype(container.begin()) p,decltype(container.end()) end,Function func): 
-					pos(p),end(end),func(func) {}
+					pos(p),end(end),func(func) {
+						while(func(*pos) && pos!=end){
+                        	pos++;
+                    	}
+					}
 
 				// ++i;
 				iterator& operator++() {
-                    ++pos;
-                    while(func(*pos) && pos!=end){
-                        ++pos;
-                    }
+					do{
+						++pos;
+                    }while(func(*pos) && pos!=end);                       
+
 					return *this;
 				}
 
@@ -52,9 +56,6 @@ namespace itertools{
 				}
 
                 auto operator*() {
-                    if(func(*pos)&& pos!=end){
-                        (*this)++;
-                    }
                     return *pos;
 				}
 
