@@ -194,13 +194,8 @@ TEST_CASE("Test Compress")
 {
     vector<int> result = {7};
     int j = 0;
-<<<<<<< HEAD
     vector<bool> myvectorBool1 = {false,false,true,false};
     for (auto i: compress(range(5,9), myvectorBool1) )
-=======
-    vector<bool> fftf {false,false,true,false};
-    for (auto i: compress(range(5,9), fftf) )
->>>>>>> 5a95f5ee456940da24acaa61859291831a0bb331
     {
         CHECK(i == result.at(j));
         ++j;
@@ -212,15 +207,9 @@ TEST_CASE("Test Compress")
 
     result = {1,7,11,20};
     j = 0;
-<<<<<<< HEAD
-    vector<int> myvec = {1,3,7,10,11,16,20};
-    vector<bool> myvecBool = {true,false,true,false,true,false,true};
-    for (auto i: compress(myvec, myvecBool) )
-=======
     vector<bool> tftftft {true,false,true,false,true,false,true};
     vector<int> v1 {1,3,7,10,11,16,20};
     for (auto i: compress(v1, tftftft) )
->>>>>>> 5a95f5ee456940da24acaa61859291831a0bb331
     {
         CHECK(i == result.at(j));
         ++j;
@@ -233,12 +222,6 @@ TEST_CASE("Test Compress")
 
     vector<char> resultString = {'I','L', 'o', 'v', 'e', 'C', '+','+'};
     j = 0;
-<<<<<<< HEAD
-
-    vector<bool> myVectorBool {true,false,false,false,true,true,true,true,true,true,true};
-    
-    for (auto i: compress(string("InotLoveC++"), myVectorBool))
-=======
     CHECK(j != 7);
     CHECK(j != 6);
     CHECK(j != 5);
@@ -260,7 +243,6 @@ TEST_CASE("Test Compress")
     vector<bool> tfffttttttt {true,false,false,false,true,true,true,true,true,true,true};
     string s1 {"InotLoveC++"};
     for (auto i: compress(s1, tfffttttttt) )
->>>>>>> 5a95f5ee456940da24acaa61859291831a0bb331
     {
         CHECK(resultString.at(j) == i);
         ++j;
